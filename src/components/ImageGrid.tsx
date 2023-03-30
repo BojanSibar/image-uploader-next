@@ -1,6 +1,8 @@
 import { CreateImageDB } from "@/helpers/image-repo";
 import styles from "@/styles/ImageGrid.module.css";
 import Image from "next/image";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 type ImageGridProps = {
   imagePaths: string[];
@@ -15,7 +17,20 @@ export default function ImageGrid({
 }: ImageGridProps) {
   const onRemoveHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { value } = e.currentTarget;
-    onRemove(value);
+    confirmAlert({
+      title: "DELETE IMAGE",
+      message: `Are you sure you want to delete ${imageData[value].name}`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => onRemove(value),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
   };
   // reverse method changes original array
   const copyOfArray = JSON.parse(JSON.stringify(imagePaths)) as string[];

@@ -21,7 +21,7 @@ export const usersRepo = {
   getAll: () => images,
   getByPath: (id: string) => images.find((image) => image.path === id),
   search: (term: string) =>
-    images.filter((x) => x.name.toString().includes(term.toString())),
+    images.filter((x) => x.name.toLowerCase().includes(term.toLowerCase())),
   create,
   delete: _delete,
 };

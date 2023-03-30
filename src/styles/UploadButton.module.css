@@ -21,6 +21,7 @@ button.uploadLabel {
 }
 button.uploadLabel:disabled {
     background: rgb(var(--button-background-disabled));; 
+    color: rgb(var( --button-color-disabled));
     border: none;
     cursor: not-allowed;
 }

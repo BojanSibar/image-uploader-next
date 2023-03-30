@@ -1,6 +1,6 @@
 import { Dispatch, ReducerState, useReducer } from "react";
 
-type Statuses = "init" | "fetching" | "error" | "fetched";
+export type Statuses = "init" | "fetching" | "error" | "fetched";
 
 interface State<T extends { name: string; path: string }> {
   initLoadStatus: Statuses;

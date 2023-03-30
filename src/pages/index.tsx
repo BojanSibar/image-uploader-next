@@ -1,16 +1,18 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import React, { useEffect } from "react";
-import useImageData from "@/hooks/useImageData";
+import React, { useEffect, useState } from "react";
+import useImageData, { Statuses } from "@/hooks/useImageData";
 import SiteLayout from "@/components/SiteLayout";
 import { CreateImageDB } from "@/helpers/image-repo";
 import ImageGrid from "@/components/ImageGrid";
 import UploadButton from "@/components/UploadButton";
 import Search from "@/components/Search";
+import LoadingImages from "@/components/LoadingImages";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [initLoadingStatus, setInitLoadingStatus] = useState<Statuses>("init");
   const [state, dispatch] = useImageData<CreateImageDB>();
 
   useEffect(() => {
@@ -18,11 +20,14 @@ export default function Home() {
     const signal = controller.signal;
 
     (async () => {
+      setInitLoadingStatus("fetching");
       const res = await fetch("/api/imageUploader/read", {
         signal,
       });
       const data = await res.json();
+
       dispatch({ type: "addInitImages", payload: data.data });
+      setInitLoadingStatus("fetched");
     })();
 
     return () => controller.abort();
@@ -83,11 +88,15 @@ export default function Home() {
         searchNode={<Search handleChange={onSearch} />}
         fileUploadNode={<UploadButton handleUpload={handleUpload} />}
         imagesNode={
-          <ImageGrid
-            imageData={state.imagesData}
-            imagePaths={state.images}
-            onRemove={onRemove}
-          />
+          initLoadingStatus === "fetched" ? (
+            <ImageGrid
+              imageData={state.imagesData}
+              imagePaths={state.images}
+              onRemove={onRemove}
+            />
+          ) : (
+            <LoadingImages />
+          )
         }
       />
     </>

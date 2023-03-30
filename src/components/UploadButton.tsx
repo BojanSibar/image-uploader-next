@@ -53,7 +53,12 @@ export default function UploadButton({ handleUpload }: UploadButtonProps) {
       ) : (
         <label>
           <strong className={styles.uploadLabel}>Choose image</strong>
-          <input type="file" hidden onChange={onFileClickHandler} />
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={onFileClickHandler}
+          />
         </label>
       )}
       <button

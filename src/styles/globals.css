@@ -4,11 +4,13 @@
   --background-start-rgb: 245, 245, 245;
   --background-end-rgb: 255, 255, 255;
 
-  --button-background: 230, 29, 15;
-  --button-background-hover: 242, 57, 44;
-  --button-background-disabled: 249, 165, 159;
+  --button-background: 173, 173, 173;
+  --button-background-hover: 184, 184, 184;
+  --button-background-disabled: 224, 224, 224;
   --button-shadow-rbga: 0,0,0,0.08;
   --button-shadow-hover-rbga: 0,0,0,0.16;
+
+  --button-color-disabled: 61, 61, 61;
 
   --card: 214, 219, 220;
 
