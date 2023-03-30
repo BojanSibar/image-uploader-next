@@ -36,32 +36,38 @@ export default function ImageGrid({
   const copyOfArray = JSON.parse(JSON.stringify(imagePaths)) as string[];
   const reversed = copyOfArray.reverse();
   return (
-    <div className={styles.wrapper}>
-      {reversed.map((image) => {
-        return (
-          <div key={image} className={styles.gridItem}>
-            <div className={styles.imageWrapper}>
-              <Image
-                className={styles.logo}
-                src={image}
-                alt={imageData[image].name}
-                fill
-              />
-            </div>
-            <div className={styles.imageLabel}>
-              <strong>Name:</strong>
-              <div className={styles.imageLabelName}>
-                {imageData[image].name}
+    <>
+      <h2 className={styles.counter}>{`${reversed.length} images`}</h2>
+      <div className={styles.wrapper}>
+        {reversed.map((image) => {
+          return (
+            <div key={image} className={styles.gridItem}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  className={styles.logo}
+                  src={image}
+                  alt={imageData[image].name}
+                  fill
+                />
               </div>
-              <div className={styles.imageButton}>
-                <button onClick={onRemoveHandler} value={imageData[image].path}>
-                  X
-                </button>
+              <div className={styles.imageLabel}>
+                <strong>Name:</strong>
+                <div className={styles.imageLabelName}>
+                  {imageData[image].name}
+                </div>
+                <div className={styles.imageButton}>
+                  <button
+                    onClick={onRemoveHandler}
+                    value={imageData[image].path}
+                  >
+                    X
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 }

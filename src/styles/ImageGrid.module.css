@@ -8,6 +8,13 @@
     margin: auto;
 }
 
+.counter{ 
+    width: var(--max-width);
+    max-width: 100%;
+    margin: auto;
+    padding: 10px 0;
+}
+
 .gridItem {
     width: 100%;
     min-height: 300px;
