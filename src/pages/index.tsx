@@ -6,6 +6,7 @@ import SiteLayout from "@/components/SiteLayout";
 import { CreateImageDB } from "@/helpers/image-repo";
 import ImageGrid from "@/components/ImageGrid";
 import UploadButton from "@/components/UploadButton";
+import Search from "@/components/Search";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,14 +43,34 @@ export default function Home() {
     }
   };
 
-  const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    console.log(value);
+  const onRemove = async (val: string) => {
+    try {
+      await fetch("/api/imageUploader/delete" + val, {
+        method: "DELETE",
+      });
+      dispatch({ type: "deleteImage", payload: val });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const onRemove = (val: string) => {
-    dispatch({ type: "deleteImage", payload: val });
+  const onSearch = async (val: string) => {
+    try {
+      let searchData = [];
+      if (!!val) {
+        const res = await fetch("/api/imageUploader/search/" + val);
+        const data = await res.json();
+        searchData = data.data;
+      }
+      dispatch({
+        type: "searchImage",
+        payload: { data: searchData, term: val },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <>
       <Head>
@@ -59,13 +80,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SiteLayout
-        searchNode={
-          <input
-            type="text"
-            placeholder="Search Images"
-            onChange={onInputChangeHandler}
-          />
-        }
+        searchNode={<Search handleChange={onSearch} />}
         fileUploadNode={<UploadButton handleUpload={handleUpload} />}
         imagesNode={
           <ImageGrid

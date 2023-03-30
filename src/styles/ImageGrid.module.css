@@ -69,4 +69,5 @@
 
 .imageButton button:hover {
     background-color: rgb(var(  --button-background-hover));
+    box-shadow: 0 4px 10px 0 rgba(var(--button-shadow-hover-rbga));
 }

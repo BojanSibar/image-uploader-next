@@ -5,6 +5,7 @@ type Statuses = "init" | "fetching" | "error" | "fetched";
 interface State<T extends { name: string; path: string }> {
   initLoadStatus: Statuses;
   addLoadStatus: Statuses;
+  initImages: string[];
   images: string[];
   imagesData: Record<string, T>;
 }
@@ -12,11 +13,13 @@ interface State<T extends { name: string; path: string }> {
 type Action<T> =
   | { type: "addInitImages"; payload: T[] }
   | { type: "addNewImage"; payload: T }
+  | { type: "searchImage"; payload: { data: T[]; term: string } }
   | { type: "deleteImage"; payload: string };
 
 const initialState = {
   initLoadStatus: "init" as Statuses,
   addLoadStatus: "init" as Statuses,
+  initImages: [],
   images: [],
   imagesData: {},
 };
@@ -40,6 +43,7 @@ function useImageData<T extends { name: string; path: string } = any>(): [
       case "addInitImages":
         return {
           ...initialState,
+          initImages: action.payload.map((item) => item.path),
           images: action.payload.map((item) => item.path),
           imagesData: action.payload.reduce(
             (acc, item) => ({
@@ -58,9 +62,16 @@ function useImageData<T extends { name: string; path: string } = any>(): [
             [action.payload.path]: { ...action.payload },
           },
         };
+      case "searchImage":
+        return {
+          ...state,
+          images: !!action.payload.term
+            ? action.payload.data.map((item) => item.path)
+            : [...state.initImages],
+        };
       case "deleteImage":
         return {
-          ...initialState,
+          ...state,
           images: state.images.filter((item) => item != action.payload),
           imagesData: removeByKey(state.imagesData, action.payload),
         };

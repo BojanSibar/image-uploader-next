@@ -19,8 +19,9 @@ let images = imagesJson as ImageDB[];
 
 export const usersRepo = {
   getAll: () => images,
+  getByPath: (id: string) => images.find((image) => image.path === id),
   search: (term: string) =>
-    images.find((x) => x.name.toString().includes(term.toString())),
+    images.filter((x) => x.name.toString().includes(term.toString())),
   create,
   delete: _delete,
 };
@@ -41,9 +42,9 @@ function create(image: CreateImageDB) {
 }
 
 // prefixed with underscore '_' because 'delete' is a reserved word in javascript
-function _delete(id: number) {
+function _delete(path: string) {
   // filter out deleted user and save
-  images = images.filter((x) => x.id.toString() !== id.toString());
+  images = images.filter((x) => x.path !== path);
   saveData();
 }
 

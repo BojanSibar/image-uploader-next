@@ -7,6 +7,8 @@
   --button-background: 230, 29, 15;
   --button-background-hover: 242, 57, 44;
   --button-background-disabled: 249, 165, 159;
+  --button-shadow-rbga: 0,0,0,0.08;
+  --button-shadow-hover-rbga: 0,0,0,0.16;
 
   --card: 214, 219, 220;
 
@@ -33,6 +35,7 @@
 html,
 body {
   max-width: 100vw;
+  height: 100%;
   overflow-x: hidden;
 }
 
