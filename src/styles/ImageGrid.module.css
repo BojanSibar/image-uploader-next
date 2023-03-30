@@ -1,0 +1,72 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    width: var(--max-width);
+    max-width: 100%;
+    position: relative;
+    margin: auto;
+}
+
+.gridItem {
+    width: 100%;
+    min-height: 300px;
+    background-color:rgb(var(--card));;
+    border: 1px solid rgb(var( --card));;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 2px 2px 2px rgb(var(--card));;
+}
+
+.gridItem:hover .imageButton {
+    visibility: visible;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+  
+
+.imageLabel {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    height: 50px;
+    padding: 5px;
+}
+
+.imageLabel strong{
+    color: rgb(var( --tile-start-rgb));
+}
+
+.imageLabelName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.imageButton {
+    visibility: hidden;
+    margin-left: auto;
+    text-align: right;
+}
+
+.imageButton button {
+    cursor: pointer;
+    background-color: rgb(var(  --button-background));
+    border: none;
+    font-weight: bolder;
+    color: black;
+    border-radius: 4px;;
+    width: 30px;
+    height: 30px;
+}
+
+.imageButton button:hover {
+    background-color: rgb(var(  --button-background-hover));
+}
